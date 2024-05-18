@@ -1,0 +1,7 @@
+{
+    "window.autoDetectColorScheme": true,
+    "editor.minimap.maxColumn": 240,
+    "editor.minimap.scale": 3,
+    "editor.minimap.sectionHeaderFontSize": 14,
+    "editor.minimap.size": "proportional"
+}

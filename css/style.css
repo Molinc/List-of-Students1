@@ -1,0 +1,79 @@
+section:not(:last-child) {
+  padding-top: 18px;
+}
+
+.head {
+  margin-bottom: 10px;
+}
+
+body {
+  min-width: 320px;
+  max-width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  color: #343a40;
+}
+
+th:not(:last-child) {
+  cursor: pointer;
+}
+
+th:last-child {
+  cursor: default;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.conteiner {
+  padding: 0 100px;
+  max-width: 1300px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.pole {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.pole-group:not(:last-child) {
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+
+.wrapper {
+  position: absolute;
+  padding: 20px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 500px;
+  height: 500px;
+  z-index: 100;
+  background-color: #efefef;
+  color: #848484;
+  font-size: 24px;
+}
+
+.error .pole{
+  border: red;
+}
+
+.hiddenSect{
+  display: none;
+}
+
+.th-head:not(:last-child){
+cursor: pointer;
+}
+
+.alert-search {
+  display: none;
+}
