@@ -236,7 +236,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     td1.textContent = `${obj.surname} ${obj.name} ${obj.lastname}`;
     td2.textContent = `${obj.faculty}`;
 
-    const datebirthday = obj.birthday;
     function createStrDate(obj) {
       const date = new Date(obj);
 
@@ -272,11 +271,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       const age = createAge(date);
       const ageNameStr = ageName(age);
       const fd = formatDate(date);
-      const strDate = ` ${fd} (${age} ${ageNameStr})`;
+      const strDate = `${fd} (${age} ${ageNameStr})`;
 
       return strDate;
     }
-    td3.textContent = `${createStrDate(obj.birthday)}`;
+    td3.textContent = createStrDate(obj.birthday);
 
     function createCouse(obj) {
       const studyStart = Number(obj);
@@ -295,7 +294,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return strCouse;
     }
 
-    const { studyStart } = obj;
+    const {studyStart} = obj;
 
     td4.textContent = createCouse(studyStart);
 
@@ -307,7 +306,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     delBtn.addEventListener('click', async () => {
       const id = tr.getAttribute('id');
-      serverDeleteStudent(id);
+      await serverDeleteStudent(id);
+      const studentDel = studentsList.filter((v) => !v.id);
+      console.log(studentDel);
+      renderTable(studentDel);
     });
 
     tr.append(td1);
@@ -316,7 +318,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     tr.append(td4);
     tr.append(td5);
 
-    const { id } = obj;
+    const {id} = obj;
     tr.setAttribute('id', id);
 
     return tr;
@@ -324,8 +326,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function renderTable(array) {
     const table = document.getElementById('table-body');
-    table.innerHTML = '';
-
+    table.innerHTML = ' ';
     array.forEach((obj) => {
       table.append(renderTableTr(obj));
     });
@@ -352,14 +353,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         faculty: document.getElementById('faculty').value,
       };
       clearForm();
-      const serverGetObj = await serverGetStudent();
       const serverAddObj = await serverAddStudent(student);
       serverAddObj.birthday = new Date(serverAddObj.birthday);
-      studentsList.push(serverGetObj);
-      const $table = document.getElementById('table-body');
-      studentsList.forEach((serverGetObj) => {
-        $table.appendChild(renderTableTr(serverGetObj));
-      });
+      studentsList.push(serverAddObj);
+      renderTable(studentsList);
     }
   });
 
@@ -408,7 +405,6 @@ document.addEventListener('DOMContentLoaded', async () => {
           renderTable(arraySort);
           break;
         case 'search-year-of-graduation'.trim():
-          const studyEnd = e.target.value.length > 0 ? String(Number(e.target.value) - 4) : '';
           arraySort = filterArray(studentsList, 'search-year-of-graduation', e.target.value);
           renderTable(arraySort);
           break;
@@ -424,5 +420,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  
+  console.log(studentsList);
+
 });
